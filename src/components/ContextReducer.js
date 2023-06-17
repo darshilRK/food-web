@@ -19,6 +19,9 @@ const reducer = (state, action) => {
                 }
             })
             return arr;
+        case "DROP":
+            let temp=[]
+            return temp;
         default:
             console.log("Error in Reducer");
     }
