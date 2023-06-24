@@ -12,9 +12,23 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
 import Signup from './screens/Signup';
 import { CartProvider } from './components/ContextReducer';
 import MyOrders from './screens/MyOrders';
+import { useEffect } from 'react';
+import { gapi } from 'gapi-script';
 
+const clientId = "335997660934-uoasidvm8sigceqsl0o9ge19pfhupk2p.apps.googleusercontent.com";
 
 function App() {
+
+  useEffect(()=>{
+    function start(){
+      gapi.client.init({
+        clientId:clientId,
+        scope:""
+      })
+    };
+    gapi.load('client:auth2',start);
+  });
+
   return (
     <CartProvider>
       <Router>

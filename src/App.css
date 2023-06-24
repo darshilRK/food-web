@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.dar{
+  /* background-color: rgba(255,255,255,0.2); */
+  color: rgb(0, 0, 0);
+}
+
+.da1{
+  color: white;
+}
+
+.cen1{
+  top: 50%;
+  left: 50%;
+  transform: translate(0%,35%);
+}

@@ -4,13 +4,20 @@ import Badge from 'react-bootstrap/Badge';
 import Modal from '../Modal';
 import Cart from '../screens/Cart';
 import { useCart } from './ContextReducer';
+import { GoogleLogout } from 'react-google-login';
+
+const clientId = "335997660934-uoasidvm8sigceqsl0o9ge19pfhupk2p.apps.googleusercontent.com";
 
 export default function Navbar() {
     const [cartView, setCartView] = useState(false);
     let data = useCart();
+    let flag = localStorage.getItem("flag");
     const navigate = useNavigate();
-    const handleLogout = () => {
+    const onSuccess = () => {
         localStorage.removeItem("authToken");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("flag");
+        console.log("logout successfully!")
         navigate("/login");
     }
     return (
@@ -49,9 +56,18 @@ export default function Navbar() {
                                         </Badge>
                                     </div>
                                     {cartView ? <Modal onClose={() => setCartView(false)}><Cart /></Modal> : null}
-                                    <div className='btn bg-white text-danger mx-2' onClick={handleLogout}>
-                                        Logout
-                                    </div>
+                                    {flag
+                                        ? <div id='signOutButton' className='btn bg-white text-danger mx-2'>
+                                            <GoogleLogout
+                                                clientId={clientId}
+                                                buttonText={"Logout"}
+                                                onLogoutSuccess={onSuccess}
+                                            />
+                                        </div>
+                                        : <div className='btn bg-white text-danger mx-2' onClick={onSuccess}>
+                                            logout
+                                        </div>
+                                    }
                                 </div>
                         }
                     </div>
@@ -60,3 +76,4 @@ export default function Navbar() {
         </div>
     )
 }
+// className='btn bg-white text-danger mx-2'
